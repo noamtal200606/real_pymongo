@@ -4,18 +4,18 @@ from STUDENT import student
 
 router = APIRouter()
 
-
+# Should be is_alive route, thats the convention to check if router is, well, alive
 @router.get("/hello")
 def hello():
     return {"msg": "Hello from router"}
 
-
+# /collection, ummm, I have no idea what it does based on the name.
 @router.post("/collection")
 def add_child(pupil: student):
     collection.insert_one(pupil.dict())
     return pupil
 
-
+# This can be done more efficiently, and again, route name is not indicative.
 @router.get("/collection")
 def avg_age():
     sum_age = 0
@@ -31,7 +31,7 @@ def avg_age():
 
 
 
-
+# Why do you have /new_number/old_number?? It's just nested routes and makes no sense.
 @router.put("/collection/new_number/old_number")
 def update_age(new_number: int, old_number: int):
     collection.update_many(
@@ -58,6 +58,7 @@ def range_of_age(bigger_num: int, smaller_num: int):
         return students
     return {'message': 'you are stupid'}
 
+# Again, number?? I see you remove one by age so why is the input is 'number'??
 @router.delete("/collection/number")
 def remove_(number: int):
     collection.delete_one({'age': number})
@@ -66,7 +67,8 @@ def remove_(number: int):
         student['_id'] = str(student['_id'])
     return students
 
-
+# I have no idea what this is.
+# condition what? what is the input?
 @router.get("/collection")
 def condition():
     students = list(collection.find(
@@ -77,6 +79,7 @@ def condition():
     for student in students:
         student['_id'] = str(student['_id'])
     return students
+
 
 
 
